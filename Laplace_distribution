@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Feb 12 15:43:58 2021
+
+@author: vishakha
+"""
+from scipy.stats import laplace
+import matplotlib.pyplot as plt
+import numpy as np
+fig, ax = plt.subplots(1, 1)
+mean, var, skew, kurt = laplace.stats(moments='mvsk')
+x = np.linspace(laplace.ppf(0.01),
+                laplace.ppf(0.99), 100)
+ax.plot(x, laplace.pdf(x),
+       'r-', lw=5, alpha=0.6, label='laplace pdf')
+plt.xlabel('x')
+plt.ylabel('Probability')
+vals = laplace.ppf([0.001, 0.5, 0.999])
+np.allclose([0.001, 0.5, 0.999], laplace.cdf(vals))
+True
+r = laplace.rvs(size=10000)
+ax.hist(r, density=True, histtype='stepfilled', alpha=0.2)
+ax.legend(loc='best', frameon=False)
+plt.show()
