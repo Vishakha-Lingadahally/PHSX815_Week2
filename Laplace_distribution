@@ -9,7 +9,9 @@ from scipy.stats import laplace
 import matplotlib.pyplot as plt
 import numpy as np
 fig, ax = plt.subplots(1, 1)
+#Calculate a few first moments:
 mean, var, skew, kurt = laplace.stats(moments='mvsk')
+#Display the probability density function (pdf):
 x = np.linspace(laplace.ppf(0.01),
                 laplace.ppf(0.99), 100)
 ax.plot(x, laplace.pdf(x),
@@ -19,7 +21,9 @@ plt.ylabel('Probability')
 vals = laplace.ppf([0.001, 0.5, 0.999])
 np.allclose([0.001, 0.5, 0.999], laplace.cdf(vals))
 True
+#Generate random numbers:
 r = laplace.rvs(size=10000)
+#Compare the histogram:
 ax.hist(r, density=True, histtype='stepfilled', alpha=0.2)
 ax.legend(loc='best', frameon=False)
 plt.show()
